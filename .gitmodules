@@ -1,0 +1,6 @@
+[submodule "common"]
+	path = common
+	url = https://github.com/cyssxt/spring-boot-common.git
+[submodule "sms-sender"]
+	path = sms-sender
+	url = https://github.com/cyssxt/sms-sender.git

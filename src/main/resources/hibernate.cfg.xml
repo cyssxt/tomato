@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="connection.url">jdbc:mysql://localhost:3306/tomato_project</property>
+    <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+      <mapping class="com.cyssxt.tomato.entity.UserInfoEntity"/>
+    <mapping class="com.cyssxt.smsspringbootstarter.entity.MsgCodesEntity"/>
+    <mapping class="com.cyssxt.tomato.entity.ProjectInfoEntity"/>
+    <mapping class="com.cyssxt.tomato.entity.ProjectSectionEntity"/>
+      <mapping class="com.cyssxt.tomato.entity.UserSettingEntity"/>
+      <mapping class="com.cyssxt.tomato.entity.GoalsEntity"/>
+      <mapping class="com.cyssxt.tomato.entity.DutyInfoEntity"/>
+      <mapping class="com.cyssxt.tomato.entity.ToDosEntity"/>
+      <mapping class="com.cyssxt.tomato.entity.TagInfoEntity"/>
+      <mapping class="com.cyssxt.tomato.entity.PushInfoEntity"/>
+      <mapping class="com.cyssxt.tomato.entity.UserLogEntity"/>
+      <mapping class="com.cyssxt.tomato.entity.ReTagEntity"/>
+      <mapping class="com.cyssxt.tomato.entity.TimeActionEntity"/>
+      <mapping class="com.cyssxt.tomato.entity.ColorsEntity"/>
+      <mapping class="com.cyssxt.tomato.entity.ToDoDayInfoEntity"/>
+      <mapping class="com.cyssxt.tomato.entity.ToDoActionsEntity"/>
+      <mapping class="com.cyssxt.tomato.entity.SessionsEntity"/>
+      <mapping class="com.cyssxt.tomato.entity.DutySectionEntity"/>
+      <mapping class="com.cyssxt.tomato.entity.TimeActionEntity"/>
+      <mapping class="com.cyssxt.tomato.entity.TimeActionsEntity"/>
+      <mapping class="com.cyssxt.tomato.entity.UserPushRelationEntity"/>
+      <mapping class="com.cyssxt.tomato.entity.ActiveLogEntity"/>
+      <mapping class="com.cyssxt.tomato.entity.PushItemEntity"/>
+      <!-- <property name="connection.username"/> -->
+    <!-- <property name="connection.password"/> -->
+
+    <!-- DB schema will be updated if needed -->
+    <!-- <property name="hbm2ddl.auto">update</property> -->
+  </session-factory>
+</hibernate-configuration>

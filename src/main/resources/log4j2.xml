@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="debug" name="XMLConfigTest" packages="com.cyssxt.tomatoservice">
+    <contextName>logback</contextName>
+    <Properties>
+        <property name="LOG_HOME" value="/tmp/log/tomato"/>
+        <property name="PATTERN_LAYOUT">%d [%7r] %6p - %30.30c - %m \n</property>
+    </Properties>
+    <Appenders>
+        <!--输出到控制台-->
+        <Console name="console" target="SYSTEM_OUT">
+            <!--输出日志的格式-->
+            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+        </Console>
+        <!--<appender name="console" class="ch.qos.logback.core.ConsoleAppender">-->
+        <!--<encoder>-->
+        <!--<pattern>%d{HH:mm:ss.SSS} %contextName [%thread] %-5level %logger{36} - %msg%n</pattern>-->
+        <!--</encoder>-->
+        <!--</appender>-->
+
+        <!--输出到文件-->
+        <RollingFile name="system_info" fileName="${LOG_HOME}/system.log"
+                     append="true"
+                     filePattern="${LOG_HOME}/system-%d{yyyy-MM-dd}.log">
+            <PatternLayout pattern="[%l] [%t] [%-4r] [%d{yyyy-MM-dd HH:mm:ss,SSS}] [%p] \: %m%n"/>
+            <!--如果是debug\info\warn输出-->
+            <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
+            </Policies>
+            <DefaultRolloverStrategy max="100">
+                <Delete basePath="${LOG_HOME}" maxDepth="2" max="7">
+                    <IfFileName glob="system-*.log">
+                        <IfLastModified age="7d">
+                            <IfAny>
+                                <IfAccumulatedFileSize exceeds="10 GB" />
+                                <IfAccumulatedFileCount exceeds="7" />
+                            </IfAny>
+                        </IfLastModified>
+                    </IfFileName>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+
+        <RollingFile name="schedule_info" fileName="${LOG_HOME}/schedule.log" filePattern="${LOG_HOME}/schedule-%d{yyyy-MM-dd}.log">
+            <PatternLayout pattern="[%l] [%t] [%-4r] [%d{yyyy-MM-dd HH:mm:ss,SSS}] [%p] \: %m%n"/>
+            <ThresholdFilter level="TRACE" onMatch="ACCEPT" onMismatch="DENY"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
+            </Policies>
+            <DefaultRolloverStrategy max="100">
+                <Delete basePath="${LOG_HOME}" maxDepth="2" max="7">
+                    <IfFileName glob="schedule-*.log">
+                        <IfLastModified age="7d">
+                            <IfAny>
+                                <IfAccumulatedFileSize exceeds="10 GB" />
+                                <IfAccumulatedFileCount exceeds="7" />
+                            </IfAny>
+                        </IfLastModified>
+                    </IfFileName>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+        <RollingFile name="error_info" fileName="${LOG_HOME}/error.log" filePattern="${LOG_HOME}/error-%d{yyyy-MM-dd}.log">
+            <PatternLayout pattern="[%l] [%t] [%-4r] [%d{yyyy-MM-dd HH:mm:ss,SSS}] [%p] \: %m%n"/>
+            <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
+            </Policies>
+            <DefaultRolloverStrategy max="100">
+                <Delete basePath="${LOG_HOME}" maxDepth="2" max="7">
+                    <IfFileName glob="error-*.log">
+                        <IfLastModified age="7d">
+                            <IfAny>
+                                <IfAccumulatedFileSize exceeds="10 GB" />
+                                <IfAccumulatedFileCount exceeds="7" />
+                            </IfAny>
+                        </IfLastModified>
+                    </IfFileName>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+        <RollingFile name="hibernate_info" fileName="${LOG_HOME}/debug.log" filePattern="${LOG_HOME}/debug-%d{yyyy-MM-dd}.log">
+            <PatternLayout pattern="[%l] [%t] [%-4r] [%d{yyyy-MM-dd HH:mm:ss,SSS}] [%p] \: %m%n"/>
+            <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
+            </Policies>
+            <DefaultRolloverStrategy max="100">
+                <Delete basePath="${LOG_HOME}" maxDepth="2" max="7">
+                    <IfFileName glob="debug-*.log">
+                        <IfLastModified age="7d">
+                            <IfAny>
+                                <IfAccumulatedFileSize exceeds="10 GB" />
+                                <IfAccumulatedFileCount exceeds="7" />
+                            </IfAny>
+                        </IfLastModified>
+                    </IfFileName>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <logger name="com.cyssxt" level="debug" additivity="false">
+            <appender-ref ref="schedule_info"/>
+        </logger>
+        <Logger name="org.hibernate.SQL" level="debug" additivity="false">
+            <appenderRef ref="hibernate_info" />
+        </Logger>
+        <!-- logback为java中的包 -->
+        <!--<logger name="com.cyssxt.tomatoservice" level="all" additivity="false">-->
+            <!--<appender-ref ref="system_info"/>-->
+        <!--</logger>-->
+        <logger name="com.cyssxt.tomatoservice" level="debug">
+            <appender-ref ref="system_info"/>
+        </logger>
+        <root level="debug">
+            <appender-ref ref="console"/>
+            <appender-ref ref="error_info"/>
+            <!--<appender-ref ref="debug_info"/>-->
+        </root>
+    </Loggers>
+</configuration>

@@ -1,0 +1,9 @@
+package com.cyssxt.tomato.dto;
+
+import lombok.Data;
+
+@Data
+public class EndTodoDto {
+    String clientId;
+    Long total;
+}
